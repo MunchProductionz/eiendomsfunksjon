@@ -5,13 +5,6 @@ Created on Wed Dec 16 00:36:32 2020
 @author: henri
 """
 
-def renter_utregning (lånesum):
-    #Regne renter
-    rentesats = 1.5 #Henter beste fra nettside med oversikt
-    renter = lånesum * rentesats
-    
-    return renter
-
 
 def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størrelse, Område, [Felleskostnad, Kommunale avgifter, Strøm/Varme, Internett], Antall Soverom]
     #Regne verdi eiendom
@@ -22,10 +15,13 @@ def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størr
     
     #Konstanter
     måneder = 12
+    år = 10
     leieinntekt = 5700
     egenkapital = 0.15
+    r = 1.02                #Hente rentesats fra bank/nettside
+    rentesum = r**år
     
-    #Variabler
+    #Variabler fra liste
     lånesum = liste[0] * (1 - egenkapital)
     kvmpris = liste[1]
     størrelse = liste[2]
@@ -37,16 +33,25 @@ def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størr
     strøm = liste[4][2]
     internett = liste[4][3]
     
-    #Kostnader
+    ####Inntekter
+    
+
+
+
+    ####Kostnader
+    
+    #Faste avgifter
     kostnader = felleskost + kommunalavgift + strøm + internett
-    
-    for år in range(10):
-        for måned in range(12):
-            renter = renter_utregning(lånesum)
-    
-    
-    #Inntekter
-    
+
+    #Renter / Avdrag
+    renter = renter_test(lånesum, rentesats)
+
+    årlig_inntekt = inntekter / år
+    renter = renter_rek(lånesum, årlig_inntekt, år, r)
+
+
+
+
     
     
     
