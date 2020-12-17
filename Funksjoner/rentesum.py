@@ -1,7 +1,7 @@
 #Funksjon for å regne renter løpende
 #Rekursivt regne ut rentetotal
 
-
+#yeet
 
 def renter_test (lånesum, rentesats):
     #Regne renter
