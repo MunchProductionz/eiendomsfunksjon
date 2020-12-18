@@ -4,22 +4,31 @@ Created on Wed Dec 16 00:36:32 2020
 
 @author: henri
 """
+#################
+#Mulie parametere
+#################
+
+## Prisantydning
+# Kvadratmeterpris
+# Størrelse
+# Område
+# Felleskostnad, Kommunale avgifter, Strøm/Varme, Internett, KabelTV
+## Antall Soverom
+
+# Input tilgjengelig kapital
 
 
 def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størrelse, Område, [Felleskostnad, Kommunale avgifter, Strøm/Varme, Internett], Antall Soverom]
-    #Regne verdi eiendom
-    
-    
-    
-    #Regne verdi leie
     
     #Konstanter
     måneder = 12
     år = 10
+    total_måneder = måneder * år
     leieinntekt = 5700
     egenkapital = 0.15
     r = 1.02                #Hente rentesats fra bank/nettside
     rentesum = r**år
+    forventet_vekst = 1.1   #Hente ved bruk av område-variabel
     
     #Variabler fra liste
     lånesum = liste[0] * (1 - egenkapital)
@@ -33,23 +42,52 @@ def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størr
     strøm = liste[4][2]
     internett = liste[4][3]
     
-    ####Inntekter
+
+    ####################
+    #Regne verdi eiendom
+    ####################
+
+    #Eiendomsverdi / Månedlige renter
+    eiendomsverdi = vekst_rek_år(lånesum, år, forventet_vekst)
     
+    årlige_renter = lånesum * r
+    månedlige_renter = årlig_renter / måneder
+    total_renter_eiendom = årlige_renter * år
+
+    eiendom = list(eiendomsverdi, månedlige renter, total_renter)
 
 
+    #################
+    #Regne verdi leie
+    #################
 
-    ####Kostnader
+    #        #
+    #Inntekter
+    #        #
+
+    månedlig_inntekt_u = leietagere * leieinntekt
+    månedlig_inntekt_m = månedlig_inntekt_u + leieinntekt           #Betale "leieinntekt" fra egen lomme
+    årlig_inntekt_u = månedlig_inntekt_u * måneder
+    årlig_inntekt_m = månedlig_inntekt_m * måneder                  
+
+
+    #        #
+    #Kostnader
+    #        #
     
-    #Faste avgifter
-    kostnader = felleskost + kommunalavgift + strøm + internett
+    #Faste avgifter - Leie
+    månedlige_felleskostnader = felleskost + kommunalavgift + strøm + internett
+    eierleie = leieinntekt
+    månedlige_eierkostnader = (månedlige_felleskostnader / (leietagere + 1)) + eierleie
 
-    #Renter / Avdrag
-    renter = renter_test(lånesum, rentesats)
+    #Renter / Avdrag - Leie
+    totale_renter_leie = renter_rek_mån(lånesum, månedlig_inntekt_m, total_måneder, r)
 
-    årlig_inntekt = inntekter / år
-    renter = renter_rek(lånesum, årlig_inntekt, år, r)
+    #Lånesum etter x antall år
+    ny_lånesum = lånesum - totale_renter_leie
 
 
+    leie = list(ny_lånesum, månedlige_eierkostnader, totale_renter_leie)
 
 
     
