@@ -1,6 +1,6 @@
 #Sammenligning data
 
-#listeliste[i] = [endring_egenkapital, eiendomsverdi, vekst_eiendomsverdi, månedlige renter, total_renter, tilbakebetalt_lån, ny_lånesum, månedlige_eierkostnader, totale_renter_leie]
+#listeliste[i] = [endring_egenkapital, eiendomsverdi, vekst_eiendomsverdi, månedlige renter, total_renter, ny_lånesum, månedlige_eierkostnader, totale_renter_leie]
 
 
 #Sammenligner eiendomstall
@@ -47,10 +47,9 @@ def sammenlign_leie (listeliste):
     #Variabler
     ##########
 
-    #tilbakebetalt_lån = listeliste[i][5]
-    #ny_lånesum = listeliste[i][6]
-    #månedlige_eierkostnader = listeliste[i][7]
-    #total_renter_leie = listeliste[i][8]
+    #ny_lånesum = listeliste[i][5]
+    #månedlige_eierkostnader = listeliste[i][6]
+    #total_renter_leie = listeliste[i][7]
     rad = []
 
 
@@ -59,12 +58,10 @@ def sammenlign_leie (listeliste):
     ################################
 
     for liste in listeliste:
-        tilbakebetalt_lån = liste[5]
-        ny_lånesum = liste[6]
-        månedlige_eierkostnader = liste[7]
-        total_renter_leie = liste[8]
+        ny_lånesum = liste[5]
+        månedlige_eierkostnader = liste[6]
+        total_renter_leie = liste[7]
 
-        rad.append(tilbakebetalt_lån)
         rad.append(ny_lånesum)
         rad.append(månedlige_eierkostnader)
         rad.append(total_renter_leie)

@@ -89,20 +89,18 @@ def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størr
     #Renter / Avdrag - Leie
     totale_renter_leie = renter_rek_mån(lånesum, månedlig_inntekt_m, total_måneder, r)
 
-    #Lånesum etter x antall år
-    ny_lånesum = lånesum - totale_renter_leie
-
     #Tilbakebetalt lån
     tilbakebetalt_lån = tilbakebetalt_rek_mån(lånesum, månedlig_inntekt_m, total_måneder, r)
+    ny_lånesum = lånesum - tilbakebetalt_lån
 
-    leie = list(tilbakebetalt_lån, ny_lånesum, månedlige_eierkostnader, totale_renter_leie)
+    leie = list(ny_lånesum, månedlige_eierkostnader, totale_renter_leie)
 
 
     ###############
     #Return verdier
     ###############
     
-    #listeliste = [endring_egenkapital, eiendomsverdi, vekst eiendomsverdi, månedlige renter, total_renter, tilbakebetalt_lån, ny_lånesum, månedlige_eierkostnader, totale_renter_leie]
+    #listeliste = [endring_egenkapital, eiendomsverdi, vekst eiendomsverdi, månedlige renter, total_renter, ny_lånesum, månedlige_eierkostnader, totale_renter_leie]
     listeliste = eiendom + leie
 
     return listeliste
