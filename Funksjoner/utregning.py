@@ -21,7 +21,7 @@ Created on Wed Dec 16 00:36:32 2020
 def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størrelse, Område, [Felleskostnad, Kommunale avgifter, Strøm/Varme, Internett], Antall Soverom]
     
     #Konstanter
-    måneder = 12
+    måneder = 12    
     år = 10
     total_måneder = måneder * år
     leieinntekt = 5700
@@ -31,7 +31,8 @@ def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størr
     forventet_vekst = 1.1   #Hente ved bruk av område-variabel
     
     #Variabler fra liste
-    lånesum = liste[0] * (1 - egenkapital)
+    eiendomspris = liste[0]
+    lånesum = eiendomspris * (1 - egenkapital)
     kvmpris = liste[1]
     størrelse = liste[2]
     område = liste[3]
@@ -48,13 +49,18 @@ def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størr
     ####################
 
     #Eiendomsverdi / Månedlige renter
-    eiendomsverdi = vekst_rek_år(lånesum, år, forventet_vekst)
+    vekst_eiendomsverdi = vekst_rek_år(eiendomspris, år, forventet_vekst)
+    eiendomsverdi = eiendomspris + vekst_eiendomsverdi
     
+    #Renter boliglån
     årlige_renter = lånesum * r
     månedlige_renter = årlig_renter / måneder
     total_renter_eiendom = årlige_renter * år
 
-    eiendom = list(eiendomsverdi, månedlige renter, total_renter)
+    #Endring egenkapital
+    endring_egenkapital = eiendomsverdi - eiendomspris - total_renter_eiendom
+
+    eiendom = list(endring_egenkapital, eiendomsverdi, vekst_eiendomsverdi, månedlige renter, total_renter)
 
 
     #################
@@ -83,17 +89,21 @@ def verdi_utregning (liste):   #Liste = [Prisantydning, Kvadratmeterpris, Størr
     #Renter / Avdrag - Leie
     totale_renter_leie = renter_rek_mån(lånesum, månedlig_inntekt_m, total_måneder, r)
 
-    #Lånesum etter x antall år
-    ny_lånesum = lånesum - totale_renter_leie
-
+    #Tilbakebetalt lån
+    tilbakebetalt_lån = tilbakebetalt_rek_mån(lånesum, månedlig_inntekt_m, total_måneder, r)
+    ny_lånesum = lånesum - tilbakebetalt_lån
 
     leie = list(ny_lånesum, månedlige_eierkostnader, totale_renter_leie)
 
 
+    ###############
+    #Return verdier
+    ###############
     
-    
-    
-    
+    #listeliste = [endring_egenkapital, eiendomsverdi, vekst eiendomsverdi, månedlige renter, total_renter, ny_lånesum, månedlige_eierkostnader, totale_renter_leie]
+    listeliste = eiendom + leie
+
+    return listeliste
     
     
     
