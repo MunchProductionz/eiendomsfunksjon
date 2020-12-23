@@ -27,7 +27,7 @@ def verdi_utregning (liste):
     måneder = 12    
     år = 10
     total_måneder = måneder * år
-    leieinntekt = 5700
+    #leieinntekt = 5700
     egenkapital = 0.15
     r = 1.02                #Hente rentesats fra bank/nettside
     rentesum = r**år
@@ -36,15 +36,15 @@ def verdi_utregning (liste):
     #Variabler fra liste
     eiendomspris = liste[0]
     lånesum = eiendomspris * (1 - egenkapital)
-    kvmpris = liste[1]
-    størrelse = liste[2]
-    område = liste[3]
-    leietagere = liste[5] - 1
+    #kvmpris = liste[1]
+    #størrelse = liste[2]
+    #område = liste[3]
+    #leietagere = liste[5] - 1
     
-    felleskost = liste[4][0]
-    kommunalavgift = liste[4][1]
-    strøm = liste[4][2]
-    internett = liste[4][3]
+    #felleskost = liste[4][0]
+    #kommunalavgift = liste[4][1]
+    #strøm = liste[4][2]
+    #internett = liste[4][3]
     
 
 
@@ -114,7 +114,7 @@ def verdi_utregning (liste):
     månedlige_eierkostnader = (månedlige_felleskostnader / (leietagere + 1)) + eierleie
 
     #Renter / Avdrag - Leie
-    totale_renter_leie = renter_rek_mån(lånesum, månedlig_inntekt_m, total_måneder, r)
+    total_renter_leie = renter_rek_mån(lånesum, månedlig_inntekt_m, total_måneder, r)
 
     #Tilbakebetalt lån
     tilbakebetalt_lån = tilbakebetalt_rek_mån(lånesum, månedlig_inntekt_m, total_måneder, r)
