@@ -54,8 +54,8 @@ def verdi_utregning (liste):
 
     #Vekst eiendomsverdi
     vekst_eiendomsverdi = vekst_rek_år(eiendomspris, år, forventet_vekst)
-    vekst_eiendomsverdi_% = vekst_eiendomsverdi / eiendomspris
-    vekst_eiendomsverdi_%_per_år = vekst_eiendomsverdi_% / år
+    vekst_eiendomsverdi_prosent = vekst_eiendomsverdi / eiendomspris
+    vekst_eiendomsverdi_prosent_per_år = vekst_eiendomsverdi_prosent / år
     
     #Eiendomsverdi
     eiendomsverdi = eiendomspris + vekst_eiendomsverdi
@@ -67,26 +67,26 @@ def verdi_utregning (liste):
 
     #Endring egenkapital
     endring_egenkapital = eiendomsverdi - eiendomspris - total_renter_eiendom
-    endring_egenkapital_% = endring_egenkapital / egenkapital
-    endring_egenkapital_%_per_år = endring_egenkapital_% / år
+    endring_egenkapital_prosent = endring_egenkapital / egenkapital
+    endring_egenkapital_prosent_per_år = endring_egenkapital_prosent / år
 
     #Faktisk egenkapital
     faktisk_egenkapital = input('Hvor mange kroner har du tilgjengelig? ')
     potenisell_lånesum = faktisk_egenkapital / egenkapital
 
     #Gevinst mot innsats (Efficieny of Capital)
-    eoc = endring_egenkapital_% * (lånesum / potenisell_lånesum) * 100  #100 gjør bare tallene penere
+    eoc = endring_egenkapital_prosent * (lånesum / potenisell_lånesum) * 100  #100 gjør bare tallene penere
 
     #Omløpsrate 
     omløpsrate = potenisell_lånesum / lånesum
 
     #Maksimal potensiell endring egenkapital (Potential Returns on Investment)
-    proi = endring_egenkapital_% * omløpsrate
+    proi = endring_egenkapital_prosent * omløpsrate
 
 
     relative_tall = list(eoc, omløpsrate, proi)
-    egenkapital = list(endring_egenkapital, endring_egenkapital_%, endring_egenkapital_%_per_år)
-    eiendom = list(eiendomsverdi, vekst_eiendomsverdi, vekst_eiendomsverdi_%, vekst_eiendomsverdi_%_per_år, månedlige_renter, total_renter_eiendom)
+    egenkapital = list(endring_egenkapital, endring_egenkapital_prosent, endring_egenkapital_prosent_per_år)
+    eiendom = list(eiendomsverdi, vekst_eiendomsverdi, vekst_eiendomsverdi_prosent, vekst_eiendomsverdi_prosent_per_år, månedlige_renter, total_renter_eiendom)
 
 
 

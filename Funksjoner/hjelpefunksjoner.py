@@ -20,8 +20,8 @@ def takeSecond (list):
 
 #Egenkapital
 # endring_egenkapital
-# endring_egenkapital_%
-# endring_egenkapital_%_per_år
+# endring_egenkapital_prosent
+# endring_egenkapital_prosent_per_år
 
 
 ###########
@@ -31,8 +31,8 @@ def takeSecond (list):
 #Eiendom
 # eiendomsverdi
 # vekst_eiendomsverdi
-# vekst_eiendomsverdi_%
-# vekst_eiendomsverdi_%_per_år
+# vekst_eiendomsverdi_prosent
+# vekst_eiendomsverdi_prosent_per_år
 # månedlige_renter
 # total_renter_eiendom
 
