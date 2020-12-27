@@ -1,71 +1,176 @@
 #Sammenligning data
 
-#listeliste[i] = [endring_egenkapital, eiendomsverdi, vekst_eiendomsverdi, månedlige renter, total_renter, ny_lånesum, månedlige_eierkostnader, totale_renter_leie]
+#listeliste[i] = [
+
+# [eoc,
+# omløpsrate,
+# proi],
+
+# [endring_egenkapital,
+# endring_egenkapital_%,
+# endring_egenkapital_%_per_år],
+
+# [eiendomsverdi,
+# vekst_eiendomsverdi,
+# vekst_eiendomsverdi_%,
+# vekst_eiendomsverdi_%_per_år,
+# månedlige_renter,
+# total_renter_eiendom],
+
+# [tilbakebetalt_lån,
+# ny_lånesum,
+# månedlige_eierkostnader,
+# totale_renter_leie]
+
+# ]
 
 
-#Sammenligner eiendomstall
+#Sammenligner relevante tall - eoc
+def sammenlign_relevante_tall_ul (listeliste):
+
+    ##########
+    #Variabler
+    ##########
+
+    #eoc = listeliste[i][0][0]
+    #omløpsrate = listeliste[i][0][1]
+    #proi = listeliste[i][0][2]
+
+    #endring_egenkapital = listeliste[i][1][0]
+    #endring_egenkapital_% = listeliste[i][1][1]
+    #endring_egenkapital_%_per_år = listeliste[i][1][2]
+    relevante_tall_ul = []
+
+
+    ###################
+    #Sortere etter eoc#
+    ###################
+
+    for liste in listeliste:
+            eoc = liste[0][0]
+            omløpsrate = liste[0][1]
+            proi = liste[0][2]
+            endring_egenkapital = liste[1][0]
+            endring_egenkapital_% = liste[1][1]
+            endring_egenkapital_%_per_år = liste[1][2]
+
+            relevante_tall_ul.append(eoc)
+            relevante_tall_ul.append(omløpsrate)
+            relevante_tall_ul.append(proi)
+            relevante_tall_ul.append(endring_egenkapital)
+            relevante_tall_ul.append(endring_egenkapital_%)
+            relevante_tall_ul.append(endring_egenkapital_%_per_år)
+
+    relevante_tall_ul.sort(key=takeFirst)       #Problemer med å sortere tot = [[eoc1, ...], [eoc2, ...], ...]
+                                                #Må sortere tot basert på [eoc1, eoc2, ...]
+    return relevante_tall_ul
+
+
+
+#Sammenligner relative tall - eoc
+def sammenlign_relative_tall (listeliste):
+
+    ##########
+    #Variabler
+    ##########
+
+    #eoc = listeliste[i][1][0]
+    #omløpsrate = listeliste[i][1][1]
+    #proi = listeliste[i][1][2]
+    relative_tall = []
+
+
+    ###################
+    #Sortere etter poc#
+    ###################
+
+    for liste in listeliste:
+        eoc = liste[0][0]
+        omløpsrate = liste[0][1]
+        proi = liste[0][2]
+
+        relative_tall.append(eoc)
+        relative_tall.append(omløpsrate)
+        relative_tall.append(proi)
+
+    relative_tall.sort(key=takeFirst)       #Problemer med å sortere tot = [[eoc1, ...], [eoc2, ...], ...]
+                                            #Må sortere tot basert på [eoc1, eoc2, ...]
+    return relative_tall
+
+
+
+#Sammenligner eiendomstall - vekst_eiendomsverdi_%
 def sammenlign_eiendom (listeliste):
 
     ##########
     #Variabler
     ##########
 
-    #endring_egenkapital = listeliste[i][0]
-    #eiendomsverdi = listeliste[i][1]
-    #vekst_eiendomsverdi = listeliste[i][2]
-    #månedlige_renter = listeliste[i][3]
-    #total_renter = listeliste[i][4]
-    rad = []
+    #eiendomsverdi = listeliste[i][2][0]
+    #vekst_eiendomsverdi = listeliste[i][2][1]
+    #vekst_eiendomsverdi_% = listeliste[i][2][2]
+    #vekst_eiendomsverdi_%_per_år = listeliste[i][2][3]
+    #månedlige_renter = listeliste[i][2][4]
+    #total_renter_eiendom = listeliste[i][2][5]
+    eiendomstall = []
 
 
-    ##################################
-    #Sortere etter endring_egenkapital
-    ##################################
+    #####################################
+    #Sortere etter vekst_eiendomsverdi_%#
+    #####################################
 
     for liste in listeliste:
-        endring_egenkapital = liste[0]
-        eiendomsverdi = liste[1]
-        vekst_eiendomsverdi = liste[2]
-        månedlige_renter = liste[3]
-        total_renter = liste[4]
+        eiendomsverdi = liste[2][0]
+        vekst_eiendomsverdi = liste[2][1]
+        vekst_eiendomsverdi_% = liste[2][2]
+        vekst_eiendomsverdi_%_per_år = liste[2][3]
+        månedlige_renter = liste[2][4]
+        total_renter_eiendom = liste[2][5]
 
-        rad.append(endring_egenkapital)
-        rad.append(eiendomsverdi)
-        rad.append(vekst_eiendomsverdi)
-        rad.append(månedlige_renter)
-        rad.append(total_renter)
+        eiendomstall.append(eiendomsverdi)
+        eiendomstall.append(vekst_eiendomsverdi)
+        eiendomstall.append(vekst_eiendomsverdi_%)
+        eiendomstall.append(vekst_eiendomsverdi_%_per_år)
+        eiendomstall.append(månedlige_renter)
+        eiendomstall.append(total_renter_eiendom)
 
-    rad.sort(key=takeFirst)
+    eiendomstall.sort(key=takeSecond)       #Problemer med å sortere tot = [[vekst...1, ...], [vekst...2, ...], ...]
+                                            #Må sortere tot basert på [vekst...1, vekst...2, ...]
 
-    return rad
+    return eiendomstall
 
 
-#Sammenligner leietall
+
+#Sammenligner leietall - tilbakebetalt_lån
 def sammenlign_leie (listeliste):
 
     ##########
     #Variabler
     ##########
 
-    #ny_lånesum = listeliste[i][5]
-    #månedlige_eierkostnader = listeliste[i][6]
-    #total_renter_leie = listeliste[i][7]
-    rad = []
+    #tilbakebetalt_lån = listeliste[i][3][0]
+    #ny_lånesum = listeliste[i][3][1]
+    #månedlige_eierkostnader = listeliste[i][3][2]
+    #total_renter_leie = listeliste[i][3][3]
+    leietall = []
 
 
-    ################################
-    #Sortere etter tilbakebetalt_lån
-    ################################
+    #################################
+    #Sortere etter tilbakebetalt_lån#
+    #################################
 
     for liste in listeliste:
-        ny_lånesum = liste[5]
-        månedlige_eierkostnader = liste[6]
-        total_renter_leie = liste[7]
+        tilbakebetalt_lån = liste[3][0]
+        ny_lånesum = liste[3][1]
+        månedlige_eierkostnader = liste[3][2]
+        total_renter_leie = liste[3][3]
 
-        rad.append(ny_lånesum)
-        rad.append(månedlige_eierkostnader)
-        rad.append(total_renter_leie)
+        leietall.append(tilbakebetalt_lån)
+        leietall.append(ny_lånesum)
+        leietall.append(månedlige_eierkostnader)
+        leietall.append(total_renter_leie)
 
-    rad.sort(key=takeFirst)
+    leietall.sort(key=takeFirst)        #Problemer med å sortere tot = [[tilb...1, ...], [tilb...2, ...], ...]
+                                        #Må sortere tot basert på [tilb...1, tilb...2, ...]
 
-    return rad
+    return leietall
