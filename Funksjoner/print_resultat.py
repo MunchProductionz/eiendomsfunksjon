@@ -1,3 +1,14 @@
+import requests
+import bs4
+import re
+import hentdata
+import hentdatafrabolig
+import hjelpefunksjoner
+import vekstfunksjoner
+import utregning
+import sammenligning
+import print_resultat
+
 #Muligheter
 # Sammenligne relevante tall utenom leie    -   sammenlign_relevante_tall_ul(verdi_utregning(boligdata))
 # Sammenligne relative tall                 -   sammenlign_relative_tall(verdi_utregning(boligdata))
@@ -5,7 +16,7 @@
 # Sammenligne leietall                      -   sammenlign_leie(verdi_utregning(boligdata))
 
 
-def print ():
+def print_resultat ():
 
     #Input
     print('Programmet sammenligner ulikt basert på ulik output.')
@@ -19,7 +30,7 @@ def print ():
 
 
     #Utregning
-    utregninger = verdi_utregning(boligdata)
+    utregninger = verdi_utregning(data_from_ads)
 
 
     ###############
