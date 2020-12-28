@@ -50,6 +50,9 @@ def data_from_ads():
 print(data_from_ads())
 
 
+#Output
+
+#Dictionary['Bolig 1'] = [Fylke, By, Prisantydning, Lenke]
 
 
 

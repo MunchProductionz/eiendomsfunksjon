@@ -1,49 +1,49 @@
-#Funksjon for å regne renter løpende
+#Funksjon for aa regne renter lopende
 #Rekursivt regne ut rentetotal
 
 ###################
-# Renter - Månedlig
+# Renter - Maanedlig
 ###################
 
 #Rentetest
-def renter_test (lånesum, rentesats):
-    return lånesum * rentesats
+def renter_test (laanesum, rentesats):
+    return laanesum * rentesats
 
-#Sum renter per måned
-def renter_rek_mån (lånesum, månedlig_inntekt_m, total_måneder, r):
-    renter = (lånesum * (r - 1)) / 12                       #Regner renter
-    ny_lånesum = (lånesum + renter) - månedlig_inntekt_m    #Regner ny lånesum
-    total_måneder -= 1                                      #Trekker fra 1 måned fra total
+#Sum renter per maaned
+def renter_rek_maan (laanesum, maanedlig_inntekt_m, total_maaneder, r):
+    renter = (laanesum * (r - 1)) / 12                       #Regner renter
+    ny_laanesum = (laanesum + renter) - maanedlig_inntekt_m    #Regner ny laanesum
+    total_maaneder -= 1                                      #Trekker fra 1 maaned fra total
 
-    if total_måneder == 1:                                  #Sluttbetingelse
+    if total_maaneder == 1:                                  #Sluttbetingelse
         return renter
-    else:                                                   #Kaller seg selv med ny lånesum som parameter
-        return renter + renter_rek_mån(ny_lånesum, månedlig_inntekt_m, total_måneder, r)
+    else:                                                   #Kaller seg selv med ny laanesum som parameter
+        return renter + renter_rek_maan(ny_laanesum, maanedlig_inntekt_m, total_maaneder, r)
 
-#Sum tilbakebetaling lån per måned
-def tilbakebetalt_rek_mån (lånesum, månedlig_inntekt_m, total_måneder, r):
-    renter = (lånesum * (r - 1)) / 12                       #Regner renter
-    ny_lånesum = (lånesum + renter) - månedlig_inntekt_m    #Regner ny lånesum
-    tilbakebetalt_sum = lånesum - ny_lånesum
-    total_måneder -= 1                                      #Trekker fra 1 måned fra total
+#Sum tilbakebetaling laan per maaned
+def tilbakebetalt_rek_maan (laanesum, maanedlig_inntekt_m, total_maaneder, r):
+    renter = (laanesum * (r - 1)) / 12                       #Regner renter
+    ny_laanesum = (laanesum + renter) - maanedlig_inntekt_m    #Regner ny laanesum
+    tilbakebetalt_sum = laanesum - ny_laanesum
+    total_maaneder -= 1                                      #Trekker fra 1 maaned fra total
 
-    if total_måneder == 1:                                  #Sluttbetingelse
+    if total_maaneder == 1:                                  #Sluttbetingelse
         return tilbakebetalt_sum
-    else:                                                   #Kaller seg selv med ny lånesum som parameter
-        return tilbakebetalt_sum + tilbakebetalt_rek_mån(ny_lånesum, månedlig_inntekt_m, total_måneder, r)
+    else:                                                   #Kaller seg selv med ny laanesum som parameter
+        return tilbakebetalt_sum + tilbakebetalt_rek_maan(ny_laanesum, maanedlig_inntekt_m, total_maaneder, r)
 
 
 ###############
-# Vekst - Årlig
+# Vekst - aarlig
 ###############
 
 #
-def vekst_rek_år (verdi, år, veksttall):
+def vekst_rek_aar (verdi, aar, veksttall):
     vekst = verdi * veksttall
     ny_verdi = verdi + vekst
-    år -= 1
+    aar -= 1
 
-    if år == 1:
+    if aar == 1:
         return vekst
     else:
-        return vekst + vekst_rek_år(ny_verdi, år, veksttall)
+        return vekst + vekst_rek_aar(ny_verdi, aar, veksttall)
