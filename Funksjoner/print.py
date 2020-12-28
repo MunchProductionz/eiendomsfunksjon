@@ -8,14 +8,14 @@
 def print ():
 
     #Input
-    print('Programmet sammenligner ulikt basert paa ulik output.')
+    print('Programmet sammenligner ulikt basert på ulik output.')
     print()
     print(' 1. Relevante tall utenom leie')
     print(' 2. Relative tall')
     print(' 3. Eiendomstall')
     print(' 4. Leietall')
 
-    svar = int(input('Skriv inn tallet til onsket output: '))
+    svar = int(input('Skriv inn tallet til ønsket output: '))
 
 
     #Utregning
@@ -43,7 +43,7 @@ def print ():
                 endring_egenkapital_prosent = boligliste[bolig][4]
                 endring_egenkapital_prosent_per_aar = boligliste[bolig][5]
 
-                print(f'Bolig {bolig}   |   EOC: {eoc} - Omlopsrate: {omlopsrate} - PROI: {proi}   |   Fortjeneste: {endring_egenkapital} - Fortjeneste prosent: {endring_egenkapital_prosent} - Fortjeneste prosent per aar: {endring_egenkapital_prosent_per_aar}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   EOC: {eoc} - Omløpsrate: {omlopsrate} - PROI: {proi}   |   Fortjeneste: {endring_egenkapital} - Fortjeneste prosent: {endring_egenkapital_prosent} - Fortjeneste prosent per år: {endring_egenkapital_prosent_per_aar}   |   Lenke: {lenke}')
 
 
         #Relative tall      -       Sorterer etter "eoc"
@@ -56,7 +56,7 @@ def print ():
                 omlopsrate = boligliste[bolig][1]
                 proi = boligliste[bolig][2]
 
-                print(f'Bolig {bolig}   |   EOC: {eoc} - Omlopsrate: {omlopsrate} - PROI: {proi}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   EOC: {eoc} - Omløpsrate: {omlopsrate} - PROI: {proi}   |   Lenke: {lenke}')
             
 
         #Eiendom            -       Sorterer etter "vekst_eiendomsverdi_prosent"
@@ -72,7 +72,7 @@ def print ():
                 maanedlige_renter = boligliste[bolig][4]
                 total_renter_eiendom = boligliste[bolig][5]
 
-                print(f'Bolig {bolig}   |   Kjopsverdi: {eiendomsverdi}   |   Fortjeneste: {vekst_eiendomsverdi} - Fortjeneste prosent: {vekst_eiendomsverdi_prosent} - Fortjeneste prosent per aar: {vekst_eiendomsverdi_prosent_per_aar}   |   Maanedlige renter: {maanedlige_renter} - Totale renter: {total_renter_eiendom}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   Kjøpsverdi: {eiendomsverdi}   |   Fortjeneste: {vekst_eiendomsverdi} - Fortjeneste prosent: {vekst_eiendomsverdi_prosent} - Fortjeneste prosent per år: {vekst_eiendomsverdi_prosent_per_aar}   |   Maanedlige renter: {maanedlige_renter} - Totale renter: {total_renter_eiendom}   |   Lenke: {lenke}')
 
 
         #Leietall           -       Sorterer etter "tilbakebetalt_laan"
@@ -86,7 +86,7 @@ def print ():
                 maanedlige_eierkostnader = boligliste[bolig][2]
                 total_renter_leie = boligliste[bolig][3]
 
-                print(f'Bolig {bolig}   |   Tilabkebetalt laan: {tilbakebetalt_laan} - Ny laanesum: {ny_laanesum}   |   Maanedlige eierkostnader: {maanedlige_eierkostnader} - Totale renter: {total_renter_leie}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   Tilbakebetalt lån: {tilbakebetalt_laan} - Ny lånesum: {ny_laanesum}   |   Månedlige eierkostnader: {maanedlige_eierkostnader} - Totale renter: {total_renter_leie}   |   Lenke: {lenke}')
 
 
         else:
