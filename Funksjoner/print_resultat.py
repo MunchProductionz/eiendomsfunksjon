@@ -30,7 +30,11 @@ def print_resultat ():
 
 
     #Utregning
-    utregninger = verdi_utregning(data_from_ads)
+    boligtall = []
+    bolig_dict = data_from_ads()
+    for bolignr in bolig_dict
+        utregninger = verdi_utregning(bolig_dict[bolignr])
+        boligtall.append(utregninger)
 
 
     ###############
@@ -44,7 +48,7 @@ def print_resultat ():
         #Relevante tall     -       Sorterer etter "eoc"
         if svar == 1:
             svar_test = True
-            boligliste = sammenlign_relevante_tall_ul(utregninger)
+            boligliste = sammenlign_relevante_tall_ul(boligtall)
 
             for bolig in range(boligliste):
                 eoc = boligliste[bolig][0]
@@ -53,6 +57,7 @@ def print_resultat ():
                 endring_egenkapital = boligliste[bolig][3]
                 endring_egenkapital_prosent = boligliste[bolig][4]
                 endring_egenkapital_prosent_per_aar = boligliste[bolig][5]
+                lenke = boligliste[bolig][6]
 
                 print(f'Bolig {bolig}   |   EOC: {eoc} - Omløpsrate: {omlopsrate} - PROI: {proi}   |   Fortjeneste: {endring_egenkapital} - Fortjeneste prosent: {endring_egenkapital_prosent} - Fortjeneste prosent per år: {endring_egenkapital_prosent_per_aar}   |   Lenke: {lenke}')
 
@@ -60,12 +65,13 @@ def print_resultat ():
         #Relative tall      -       Sorterer etter "eoc"
         elif svar == 2:
             svar_test = True
-            boligliste = sammenlign_relative_tall(utregninger)
+            boligliste = sammenlign_relative_tall(boligtall)
 
             for bolig in range(boligliste):
                 eoc = boligliste[bolig][0]
                 omlopsrate = boligliste[bolig][1]
                 proi = boligliste[bolig][2]
+                lenke = boligliste[bolig][3]
 
                 print(f'Bolig {bolig}   |   EOC: {eoc} - Omløpsrate: {omlopsrate} - PROI: {proi}   |   Lenke: {lenke}')
             
@@ -73,7 +79,7 @@ def print_resultat ():
         #Eiendom            -       Sorterer etter "vekst_eiendomsverdi_prosent"
         elif svar == 3:
             svar_test = True
-            boligliste = sammenlign_eiendom(utregninger)
+            boligliste = sammenlign_eiendom(boligtall)
 
             for bolig in range(boligliste):
                 eiendomsverdi = boligliste[bolig][0]
@@ -82,6 +88,7 @@ def print_resultat ():
                 vekst_eiendomsverdi_prosent_per_aar = boligliste[bolig][3]
                 maanedlige_renter = boligliste[bolig][4]
                 total_renter_eiendom = boligliste[bolig][5]
+                lenke = boligliste[bolig][6]
 
                 print(f'Bolig {bolig}   |   Kjøpsverdi: {eiendomsverdi}   |   Fortjeneste: {vekst_eiendomsverdi} - Fortjeneste prosent: {vekst_eiendomsverdi_prosent} - Fortjeneste prosent per år: {vekst_eiendomsverdi_prosent_per_aar}   |   Maanedlige renter: {maanedlige_renter} - Totale renter: {total_renter_eiendom}   |   Lenke: {lenke}')
 
@@ -89,13 +96,14 @@ def print_resultat ():
         #Leietall           -       Sorterer etter "tilbakebetalt_laan"
         elif svar == 4:
             svar_test = True
-            boligliste = sammenlign_leie(utregninger)
+            boligliste = sammenlign_leie(boligtall)
 
             for bolig in range(boligliste):
                 tilbakebetalt_laan = boligliste[bolig][0]
                 ny_laanesum = boligliste[bolig][1]
                 maanedlige_eierkostnader = boligliste[bolig][2]
                 total_renter_leie = boligliste[bolig][3]
+                lenke = boligliste[bolig][4]
 
                 print(f'Bolig {bolig}   |   Tilbakebetalt lån: {tilbakebetalt_laan} - Ny lånesum: {ny_laanesum}   |   Månedlige eierkostnader: {maanedlige_eierkostnader} - Totale renter: {total_renter_leie}   |   Lenke: {lenke}')
 

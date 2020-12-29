@@ -11,3 +11,5 @@ import print_resultat
 
 def main ():
     print_resultat()
+
+main()

@@ -55,8 +55,8 @@ def verdi_utregning (liste):
     eiendomsverdi = eiendomspris + vekst_eiendomsverdi
     
     #Renter boliglaan
-    aarlige_renter = laanesum * r
     maanedlige_renter = aarlig_renter / maaneder
+    aarlige_renter = laanesum * r
     total_renter_eiendom = aarlige_renter * aar
 
     #Endring egenkapital
