@@ -36,7 +36,7 @@ def verdi_utregning (liste):
     
     #Variabler fra liste
     omraade = liste[0]
-    eiendomspris = liste[2]
+    eiendomspris = int(liste[2])
     lenke = liste[3]
     laanesum = eiendomspris * (1 - egenkapital)
 
@@ -65,7 +65,7 @@ def verdi_utregning (liste):
     endring_egenkapital_prosent_per_aar = endring_egenkapital_prosent / aar
 
     #Faktisk egenkapital
-    faktisk_egenkapital = input('Hvor mange kroner har du tilgjengelig? ')
+    faktisk_egenkapital = int(input('Hvor mange kroner har du tilgjengelig? '))
     potenisell_laanesum = faktisk_egenkapital / egenkapital
 
     #Gevinst mot innsats (Efficieny of Capital)
@@ -78,9 +78,9 @@ def verdi_utregning (liste):
     proi = endring_egenkapital_prosent * omlopsrate
 
 
-    relative_tall = list(eoc, omlopsrate, proi)
-    egenkapital = list(endring_egenkapital, endring_egenkapital_prosent, endring_egenkapital_prosent_per_aar)
-    eiendom = list(eiendomsverdi, vekst_eiendomsverdi, vekst_eiendomsverdi_prosent, vekst_eiendomsverdi_prosent_per_aar, maanedlige_renter, total_renter_eiendom)
+    relative_tall = [eoc, omlopsrate, proi]
+    egenkapital = [endring_egenkapital, endring_egenkapital_prosent, endring_egenkapital_prosent_per_aar]
+    eiendom = [eiendomsverdi, vekst_eiendomsverdi, vekst_eiendomsverdi_prosent, vekst_eiendomsverdi_prosent_per_aar, maanedlige_renter, total_renter_eiendom]
 
 
 
@@ -114,7 +114,7 @@ def verdi_utregning (liste):
     tilbakebetalt_laan = tilbakebetalt_rek_maan(laanesum, maanedlig_inntekt_m, total_maaneder, r)
     ny_laanesum = laanesum - tilbakebetalt_laan
 
-    leie = list(tilbakebetalt_laan, ny_laanesum, maanedlige_eierkostnader, totale_renter_leie)
+    leie = [tilbakebetalt_laan, ny_laanesum, total_renter_leie]
 
 
     ###############

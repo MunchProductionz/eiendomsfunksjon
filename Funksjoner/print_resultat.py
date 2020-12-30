@@ -101,11 +101,10 @@ def print_resultat ():
             for bolig in range(boligliste):
                 tilbakebetalt_laan = boligliste[bolig][0]
                 ny_laanesum = boligliste[bolig][1]
-                maanedlige_eierkostnader = boligliste[bolig][2]
-                total_renter_leie = boligliste[bolig][3]
-                lenke = boligliste[bolig][4]
+                total_renter_leie = boligliste[bolig][2]
+                lenke = boligliste[bolig][3]
 
-                print(f'Bolig {bolig}   |   Tilbakebetalt lån: {tilbakebetalt_laan} - Ny lånesum: {ny_laanesum}   |   Månedlige eierkostnader: {maanedlige_eierkostnader} - Totale renter: {total_renter_leie}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   Tilbakebetalt lån: {tilbakebetalt_laan} - Ny lånesum: {ny_laanesum}   |   Totale renter: {total_renter_leie}   |   Lenke: {lenke}')
 
 
         else:
