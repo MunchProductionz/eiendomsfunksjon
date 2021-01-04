@@ -6,6 +6,10 @@ def takeFirst (list):
 def takeSecond (list):
     return list[1]
 
+def removesoup (string):
+    string = string.replace("\xa", "")
+    return string
+
 
 #Oversikt outputs
 

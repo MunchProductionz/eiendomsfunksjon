@@ -15,4 +15,10 @@ def f2 (tall):
 
 
 #Pene Tall
-def     
+def p (tall):
+    streng = str(tall)
+
+    for mellomrom in range(len(streng), 0, -3):
+        penere_tall = streng[:mellomrom] + ' ' + streng[mellomrom:]     #Problem
+                                                                        #Fjerner mellomrom som er lagt til i slutten av strengen
+    return penere_tall

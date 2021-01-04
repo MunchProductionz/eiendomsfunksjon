@@ -7,7 +7,6 @@ from hentdata import hent_data
 
 
 
-
 def annonse_lenke(soup):
     ad_links = []
     for link in soup.find_all('a',{"class":"ads__unit__link"}):
@@ -67,7 +66,7 @@ def data_from_ads(finn_lenke):
 
 #Output
 
-#Dictionary['Bolig 1'] = [Fylke, By, Prisantydning, Lenke]
+#Dictionary['Bolig 1'] = [Fylke, By, Postnummer, Prisantydning, Vekstrate, Lenke]
 
 
 
