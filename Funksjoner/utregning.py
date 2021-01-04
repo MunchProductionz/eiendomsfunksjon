@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec 16 00:36:32 2020
-
-@author: henri
-"""
 #################
 #Mulie parametere
 #################
@@ -16,7 +10,7 @@ Created on Wed Dec 16 00:36:32 2020
 ## Antall Soverom
 
 #bolig_dict = {'Bolig 1' = [Fylke, By, Prisantydning, Lenke], ...}
-#liste = [Fylke, By, Prisantydning, Lenke]
+#liste = [Fylke, By,  Prisantydning, Lenke]
 
 # Input tilgjengelig kapital
 
