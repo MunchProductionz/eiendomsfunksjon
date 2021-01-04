@@ -65,6 +65,9 @@ def data_from_ads(finn_lenke):
 
 
 
+#Output
+
+#Dictionary['Bolig 1'] = [Fylke, By, Prisantydning, Lenke]
 
 
 

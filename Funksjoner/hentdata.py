@@ -10,5 +10,3 @@ def hent_data(link):
 
 
     return soup
-
-
