@@ -32,7 +32,7 @@ def print_resultat ():
     #Utregning
     boligtall = []
     bolig_dict = data_from_ads()
-    for bolignr in bolig_dict
+    for bolignr in bolig_dict:
         utregninger = verdi_utregning(bolig_dict[bolignr])
         boligtall.append(utregninger)
 

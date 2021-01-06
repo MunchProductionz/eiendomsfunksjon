@@ -7,7 +7,6 @@ from hentdata import hent_data
 
 
 
-
 def annonse_lenke(soup):
     ad_links = []
     for link in soup.find_all('a',{"class":"ads__unit__link"}):

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eiendomsfunksjon</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <header id="main-header">
+        <div class="container">
+            <h1>Eiendomsfunksjon    </h1>
+        </div>
+    </header>
+
+    <header id="navbar">
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <div class="container">
+            <h1>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</h1>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="main">
+            <h1>Handel</h1>
+            <div class="inputs">
+                <form action="process.php" method="POST">
+                    
+                    <!-- Entries -->
+                    <div class="entries">
+                        <div class="entryheader">
+                            <label>Antall Entries:</label>
+                            <input type="number" name="amount" value="1">
+                        </div>
+                        <div class="price">         
+                            <label>Entry 1 - Price (kr): </label>
+                            <input type="text" name="price" placeholder="Eks: 1.07">
+                        </div>
+                        <div class="amount">                          
+                            <label>Entry 1 - Amount: </label>
+                            <input type="text" name="amount" placeholder="Eks: 100">
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <!-- Stoploss -->
+                    <div class="stoploss">                                    
+                        <label>Stoploss - Price (kr): </label>
+                        <input type="text" name="stoploss" placeholder="Eks: 1.05">
+                    </div>
+                    <br>
+
+                    <!-- Tilgjengelig Kapital -->
+                    <div class="amount">                          
+                        <label>Available Capital (kr): </label>
+                        <input type="text" name="capital" placeholder="Eks: 100000">
+                    </div>
+                    <br>
+
+                    <!-- PTs -->
+                    <div class="pts">
+                        <div class="ptsheader">
+                            <label>Antall PTs:</label>
+                            <input type="number" name="amount" value="1">
+                        </div>
+                        <div class="price">         
+                            <label>PT 1 - Price (kr): </label>
+                            <input type="text" name="price" placeholder="Eks: 1.09">
+                        </div>
+                        <div class="amount">                          
+                            <label>PT 1 - Amount: </label>
+                            <input type="text" name="amount" placeholder="Eks: 100">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="calculate">
+                        <input type="submit" name="submit" value="Calculate">
+                    </div>
+                </form>
+            </div>
+        </section>
+        <aside id="aside">
+            <h1>Relevante Tall</h1>
+            
+            <div class="outputs">
+                <p>*Oversikt med boligtall + lenker*</p>
+                <p>Risiko: </p>
+                <p>Profit ved handel %: </p>
+                <p>Profit av total %:</p>
+                <p>Risiko av total %:</p>
+                <br>
+                <p>Risk / Reward: </p>
+                <p>EOC: </p>
+                <br>
+                <p>Avg. PT: </p>
+                <p>Avg. Entry: </p>
+                <p>Stoploss: </p>
+                <p>Antall kjøpt: </p>
+                <p>Antall solgt: </p>
+            </div>
+        </aside>
+    </div>
+
+    <footer id="main-footer">
+        <p>Copyright &copy; 2020, Handelsverktøy</p>
+    </footer>
+</body>
+</html>
