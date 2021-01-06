@@ -16,6 +16,8 @@ def annonse_lenke(soup):
         
     return ad_links
 
+def reverse_string(string):
+    return string[::-1]
 
 def data_from_ads(finn_lenke):
 
@@ -25,7 +27,7 @@ def data_from_ads(finn_lenke):
     bolig_dict = {}
     for count, lenke in enumerate(ad_links, start=1):
         ad_soup = hent_data(lenke)
-        bolignr = "bolig"+str(count)
+        bolignr = "bolig "+str(count)
         bolig_info = []
 
         for checkbox in soup.find_all('input', checked=True,limit=2):
@@ -39,8 +41,7 @@ def data_from_ads(finn_lenke):
     
         postnummer_adresse = ad_soup.find("p",{"class": "u-caption"}).get_text()
 
-        def reverse_string(string):
-            return string[::-1]
+       
         s = [int(s) for s in str.split(reverse_string(postnummer_adresse)) if s.isdigit()]
         
         postnummer = reverse_string(str(s[0]))
@@ -67,7 +68,7 @@ def data_from_ads(finn_lenke):
 
 #Output
 
-#Dictionary['Bolig 1'] = [Fylke, By, Prisantydning, Lenke]
+#Dictionary['Bolig 1'] = [Fylke, By, Postnummer, Prisantydning, Vekstrate, Lenke]
 
 
 

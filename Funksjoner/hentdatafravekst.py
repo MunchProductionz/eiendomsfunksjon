@@ -18,10 +18,9 @@ def vekstrate_funk(finn_lenke):
         postnr = items[2]
         soup = postnummer_side(postnr)
         vekstrate = soup.find("h1",{"class":"css-10rlvwe"}).get_text()
-        print(vekstrate)
         bolig_dict[key].insert(4,vekstrate)
     return bolig_dict
 
-print(vekstrate_funk('https://www.finn.no/realestate/homes/search.html?location=2.20016.20318.20505&sort=PUBLISHED_DESC'))
+#print(vekstrate_funk('https://www.finn.no/realestate/homes/search.html?location=2.20016.20318.20505&sort=PUBLISHED_DESC'))
 
 
