@@ -10,12 +10,12 @@
 ## Antall Soverom
 
 #bolig_dict = {'Bolig 1' = [Fylke, By, Prisantydning, Lenke], ...}
-#liste = [Fylke, By,  Prisantydning, Lenke]
+#liste = [Fylke, By, Postnummer, Prisantydning, Vekstrate, Lenke]
 
 # Input tilgjengelig kapital
 
 
-def verdi_utregning (liste):
+def verdi_utregning (liste, faktisk_kapital):
     
     #Konstanter
     maaneder = 12    
@@ -24,14 +24,15 @@ def verdi_utregning (liste):
     egenkapital = 0.15
     r = 1.02                #Hente rentesats fra bank/nettside
     rentesum = r**aar
-    forventet_vekst = 1.1   #Hente ved bruk av omraade-variabel
+    forventet_vekst = 1.1
     leieinntekt = 5700
     leietagere = 2
     
     #Variabler fra liste
-    omraade = liste[0]
-    eiendomspris = int(liste[2])
-    lenke = liste[3]
+    #omraade = liste[0]
+    eiendomspris = hjelpefunksjoner.removesoup(liste[2])
+    #forventet_vekst = liste[4]   #Hente ved bruk av omraade-variabel
+    #lenke = liste[5]
     laanesum = eiendomspris * (1 - egenkapital)
 
     
@@ -49,8 +50,8 @@ def verdi_utregning (liste):
     eiendomsverdi = eiendomspris + vekst_eiendomsverdi
     
     #Renter boliglaan
-    maanedlige_renter = aarlig_renter / maaneder
     aarlige_renter = laanesum * r
+    maanedlige_renter = aarlige_renter / maaneder
     total_renter_eiendom = aarlige_renter * aar
 
     #Endring egenkapital
@@ -59,7 +60,7 @@ def verdi_utregning (liste):
     endring_egenkapital_prosent_per_aar = endring_egenkapital_prosent / aar
 
     #Faktisk egenkapital
-    faktisk_egenkapital = int(input('Hvor mange kroner har du tilgjengelig? '))
+    faktisk_egenkapital = faktisk_kapital
     potenisell_laanesum = faktisk_egenkapital / egenkapital
 
     #Gevinst mot innsats (Efficieny of Capital)
@@ -86,11 +87,11 @@ def verdi_utregning (liste):
     #Inntekter
     #        #
 
-    eierleie = leieinntekt
+    #eierleie = leieinntekt
     maanedlig_inntekt_u = leietagere * leieinntekt
     maanedlig_inntekt_m = maanedlig_inntekt_u + leieinntekt           #Betale "eierleie" fra egen lomme
-    aarlig_inntekt_u = maanedlig_inntekt_u * maaneder
-    aarlig_inntekt_m = maanedlig_inntekt_m * maaneder                  
+    #aarlig_inntekt_u = maanedlig_inntekt_u * maaneder
+    #aarlig_inntekt_m = maanedlig_inntekt_m * maaneder                  
 
 
     #        #
@@ -121,7 +122,7 @@ def verdi_utregning (liste):
     listeliste.append(egenkapital)
     listeliste.append(eiendom)
     listeliste.append(leie)
-    listeliste.append(lenke)
+    #listeliste.append(lenke)
 
     return listeliste
     

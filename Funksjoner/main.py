@@ -1,6 +1,5 @@
 import requests
 import bs4
-import re
 import hentdata
 import hentdatafrabolig
 import hjelpefunksjoner

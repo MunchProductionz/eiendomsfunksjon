@@ -1,10 +1,7 @@
 import requests
 import bs4
-import re
 
-# Complete program
-
-
+#Complete program
 
 # Hent data
 def hent_data(link):
@@ -60,11 +57,57 @@ def data_from_ads():
     return bolig_dict
       
 
+#Hent vekst
+def postnummer_side(postnummer):
+    soup = hent_data('https://www.krogsveen.no/prisstatistikk?zipCode='+ postnummer)
+
+    return soup
+def vekstrate_funk(finn_lenke):
+    bolig_dict = data_from_ads(finn_lenke)
+    for key, items in bolig_dict.items():
+        postnr = items[2]
+        soup = postnummer_side(postnr)
+        vekstrate = soup.find("h1",{"class":"css-10rlvwe"}).get_text()
+        print(vekstrate)
+        bolig_dict[key].insert(4,vekstrate)
+    return bolig_dict
+#print(vekstrate_funk('https://www.finn.no/realestate/homes/search.html?location=2.20016.20318.20505&sort=PUBLISHED_DESC'))
+
+
+#Formating
+def f0 (tall):
+    tall = float(tall)
+    return format(tall, '.0f')
+def f1 (tall):
+    tall = float(tall)
+    return format(tall, '.1f')
+def f2 (tall):
+    tall = float(tall)
+    return format(tall, '.2f')
+
+def p(num):
+    num_string = str(num)
+    num_list = list(num_string)
+    i = len(num_list) - 3
+
+    while i > 0:
+        num_list.insert(i , ' ')
+        i -= 3
+
+    return ''.join(num_list)
+
+
 # Hjelpefunksjoner
 def takeFirst (list):
     return list[0]
 def takeSecond (list):
     return list[1]
+def removesoup (string):
+    string = string.replace("\xa0", "")
+    string = string.replace("kr", "")
+    string = int(string)
+    return string
+
 
 
 # Vekstfunksjoner
@@ -72,7 +115,7 @@ def renter_test (laanesum, rentesats):
     return laanesum * rentesats
 def renter_rek_maan (laanesum, maanedlig_inntekt_m, total_maaneder, r):
     renter = (laanesum * (r - 1)) / 12                       #Regner renter
-    ny_laanesum = (laanesum + renter) - maanedlig_inntekt_m    #Regner ny laanesum
+    ny_laanesum = (laanesum + renter) - maanedlig_inntekt_m  #Regner ny laanesum
     total_maaneder -= 1                                      #Trekker fra 1 maaned fra total
 
     if total_maaneder == 1:                                  #Sluttbetingelse
@@ -89,6 +132,7 @@ def tilbakebetalt_rek_maan (laanesum, maanedlig_inntekt_m, total_maaneder, r):
         return tilbakebetalt_sum
     else:                                                   #Kaller seg selv med ny laanesum som parameter
         return tilbakebetalt_sum + tilbakebetalt_rek_maan(ny_laanesum, maanedlig_inntekt_m, total_maaneder, r)
+
 def vekst_rek_aar (verdi, aar, veksttall):
     vekst = verdi * veksttall
     ny_verdi = verdi + vekst
@@ -101,23 +145,24 @@ def vekst_rek_aar (verdi, aar, veksttall):
 
 
 # Utregning
-def verdi_utregning (liste):
+def verdi_utregning (liste, faktisk_kapital):
     
     #Konstanter
     maaneder = 12    
-    aar = 10                #Input
+    aar = 10
     total_maaneder = maaneder * aar
     egenkapital = 0.15
     r = 1.02                #Hente rentesats fra bank/nettside
-    rentesum = r**aar
-    forventet_vekst = 1.1   #Hente ved bruk av omraade-variabel
-    leieinntekt = 5700      #Hente
-    leietagere = 2          #Hente
+    #rentesum = r**aar
+    forventet_vekst = 1.1
+    leieinntekt = 5700
+    leietagere = 2
     
     #Variabler fra liste
-    omraade = liste[0]
-    eiendomspris = liste[2]
-    lenke = liste[3]
+    #omraade = liste[0]
+    eiendomspris = removesoup(liste[2])
+    #forventet_vekst = liste[4]   #Hente ved bruk av omraade-variabel
+    #lenke = liste[3]
     laanesum = eiendomspris * (1 - egenkapital)
 
     
@@ -135,8 +180,8 @@ def verdi_utregning (liste):
     eiendomsverdi = eiendomspris + vekst_eiendomsverdi
     
     #Renter boliglaan
-    maanedlige_renter = aar/ maaneder
     aarlige_renter = laanesum * r
+    maanedlige_renter = aarlige_renter / maaneder
     total_renter_eiendom = aarlige_renter * aar
 
     #Endring egenkapital
@@ -145,7 +190,7 @@ def verdi_utregning (liste):
     endring_egenkapital_prosent_per_aar = endring_egenkapital_prosent / aar
 
     #Faktisk egenkapital
-    faktisk_egenkapital = input('Hvor mange kroner har du tilgjengelig? ')
+    faktisk_egenkapital = faktisk_kapital
     potenisell_laanesum = faktisk_egenkapital / egenkapital
 
     #Gevinst mot innsats (Efficieny of Capital)
@@ -158,9 +203,9 @@ def verdi_utregning (liste):
     proi = endring_egenkapital_prosent * omlopsrate
 
 
-    relative_tall = list(eoc, omlopsrate, proi)
-    egenkapital = list(endring_egenkapital, endring_egenkapital_prosent, endring_egenkapital_prosent_per_aar)
-    eiendom = list(eiendomsverdi, vekst_eiendomsverdi, vekst_eiendomsverdi_prosent, vekst_eiendomsverdi_prosent_per_aar, maanedlige_renter, total_renter_eiendom)
+    relative_tall = [eoc, omlopsrate, proi]
+    egenkapital = [endring_egenkapital, endring_egenkapital_prosent, endring_egenkapital_prosent_per_aar]
+    eiendom = [eiendomsverdi, vekst_eiendomsverdi, vekst_eiendomsverdi_prosent, vekst_eiendomsverdi_prosent_per_aar, maanedlige_renter, total_renter_eiendom]
 
 
 
@@ -172,11 +217,11 @@ def verdi_utregning (liste):
     #Inntekter
     #        #
 
-    eierleie = leieinntekt
+    #eierleie = leieinntekt
     maanedlig_inntekt_u = leietagere * leieinntekt
     maanedlig_inntekt_m = maanedlig_inntekt_u + leieinntekt           #Betale "eierleie" fra egen lomme
-    aarlig_inntekt_u = maanedlig_inntekt_u * maaneder
-    aarlig_inntekt_m = maanedlig_inntekt_m * maaneder                  
+    #aarlig_inntekt_u = maanedlig_inntekt_u * maaneder
+    #aarlig_inntekt_m = maanedlig_inntekt_m * maaneder                  
 
 
     #        #
@@ -194,7 +239,7 @@ def verdi_utregning (liste):
     tilbakebetalt_laan = tilbakebetalt_rek_maan(laanesum, maanedlig_inntekt_m, total_maaneder, r)
     ny_laanesum = laanesum - tilbakebetalt_laan
 
-    leie = list(tilbakebetalt_laan, ny_laanesum, maanedlige_eierkostnader, totale_renter_leie)
+    leie = [tilbakebetalt_laan, ny_laanesum, total_renter_leie]
 
 
     ###############
@@ -207,13 +252,13 @@ def verdi_utregning (liste):
     listeliste.append(egenkapital)
     listeliste.append(eiendom)
     listeliste.append(leie)
-    listeliste.append(lenke)
+    #listeliste.append(lenke)
 
     return listeliste
 
 
 # Sammenligning
-def sammenlign_relevante_tall_ul (listeliste):
+def sammenlign_relevante_tall_ul (listelisteliste):
 
     ##########
     #Variabler
@@ -234,24 +279,28 @@ def sammenlign_relevante_tall_ul (listeliste):
     #Sortere etter eoc#
     ###################
 
-    for liste in listeliste:
+    for liste in listelisteliste:
             eoc = liste[0][0]
             omlopsrate = liste[0][1]
             proi = liste[0][2]
             endring_egenkapital = liste[1][0]
             endring_egenkapital_prosent = liste[1][1]
             endring_egenkapital_prosent_per_aar = liste[1][2]
-            lenke = liste[4][0]
+            #lenke = liste[4][0]
 
-            relevante_tall_ul.append(eoc)
-            relevante_tall_ul.append(omlopsrate)
-            relevante_tall_ul.append(proi)
-            relevante_tall_ul.append(endring_egenkapital)
-            relevante_tall_ul.append(endring_egenkapital_prosent)
-            relevante_tall_ul.append(endring_egenkapital_prosent_per_aar)
-            relevante_tall_ul.append(lenke)
+            relevante_tall_ul_liste = []
+            relevante_tall_ul_liste.append(eoc)
+            relevante_tall_ul_liste.append(omlopsrate)
+            relevante_tall_ul_liste.append(proi)
+            relevante_tall_ul_liste.append(endring_egenkapital)
+            relevante_tall_ul_liste.append(endring_egenkapital_prosent)
+            relevante_tall_ul_liste.append(endring_egenkapital_prosent_per_aar)
+            #relevante_tall_ul_liste.append(lenke)
+            
+            relevante_tall_ul.append(relevante_tall_ul_liste)
 
-    relevante_tall_ul = sorted(relevante_tall_ul, key=lambda l:l[0], reverse = False)
+    relevante_tall_ul.sort(key=lambda l:l[0], reverse = True)
+    print(relevante_tall_ul)
                                                 
     return relevante_tall_ul
 def sammenlign_relative_tall (listeliste):
@@ -275,12 +324,12 @@ def sammenlign_relative_tall (listeliste):
         eoc = liste[0][0]
         omlopsrate = liste[0][1]
         proi = liste[0][2]
-        lenke = liste[4][0]
+        #lenke = liste[4][0]
 
         relative_tall.append(eoc)
         relative_tall.append(omlopsrate)
         relative_tall.append(proi)
-        relative_tall.append(lenke)
+        #relative_tall.append(lenke)
 
     relative_tall = sorted(relative_tall, key=lambda l:l[0], reverse = False)
             
@@ -312,7 +361,7 @@ def sammenlign_eiendom (listeliste):
         vekst_eiendomsverdi_prosent_per_aar = liste[2][3]
         maanedlige_renter = liste[2][4]
         total_renter_eiendom = liste[2][5]
-        lenke = liste[4][0]
+        #lenke = liste[4][0]
 
         eiendomstall.append(eiendomsverdi)
         eiendomstall.append(vekst_eiendomsverdi)
@@ -320,7 +369,7 @@ def sammenlign_eiendom (listeliste):
         eiendomstall.append(vekst_eiendomsverdi_prosent_per_aar)
         eiendomstall.append(maanedlige_renter)
         eiendomstall.append(total_renter_eiendom)
-        eiendomstall.append(lenke)
+        #eiendomstall.append(lenke)
 
     eiendomstall = sorted(eiendomstall, key=lambda l:l[2], reverse = False)
                                             
@@ -348,13 +397,13 @@ def sammenlign_leie (listeliste):
         ny_laanesum = liste[3][1]
         maanedlige_eierkostnader = liste[3][2]
         total_renter_leie = liste[3][3]
-        lenke = liste[4][0]
+        #lenke = liste[4][0]
 
         leietall.append(tilbakebetalt_laan)
         leietall.append(ny_laanesum)
         leietall.append(maanedlige_eierkostnader)
         leietall.append(total_renter_leie)
-        leietall.append(lenke)
+        #leietall.append(lenke)
 
     leietall = sorted(leietall, key=lambda l:l[0], reverse = False)
 
@@ -373,14 +422,19 @@ def print_resultat ():
     print(' 4. Leietall')
 
     svar = int(input('Skriv inn tallet til ønsket output: '))
+    
+    print()
+    
+    faktisk_kapital = int(input('Hvor mange kroner har du tilgjengelig? '))
 
 
     #Utregning
     boligtall = []
     bolig_dict = data_from_ads()
-    for bolignr in bolig_dict
-        utregninger = verdi_utregning(bolig_dict[bolignr])
+    for bolignr in bolig_dict:
+        utregninger = verdi_utregning(bolig_dict[bolignr], faktisk_kapital)
         boligtall.append(utregninger)
+        
 
 
     ###############
@@ -390,22 +444,32 @@ def print_resultat ():
     svar_test = False
 
     while svar_test == False:
-
+        
+        
         #Relevante tall     -       Sorterer etter "eoc"
         if svar == 1:
             svar_test = True
             boligliste = sammenlign_relevante_tall_ul(boligtall)
+            
 
-            for bolig in range(boligliste):
+            for bolig in range(len(boligliste)):
                 eoc = boligliste[bolig][0]
+                eoc_f = f2(eoc)
                 omlopsrate = boligliste[bolig][1]
+                omlopsrate_f = f2(omlopsrate)
                 proi = boligliste[bolig][2]
+                proi_f = f0(proi)
+                proi_f_p = p(proi_f)
                 endring_egenkapital = boligliste[bolig][3]
+                endring_egenkapital_f = f0(endring_egenkapital)
+                endring_egenkapital_f_p = p(endring_egenkapital_f)
                 endring_egenkapital_prosent = boligliste[bolig][4]
+                endring_egenkapital_prosent_f = f2(endring_egenkapital_prosent)
                 endring_egenkapital_prosent_per_aar = boligliste[bolig][5]
-                lenke = boligliste[bolig][6]
+                endring_egenkapital_prosent_per_aar_f = f2(endring_egenkapital_prosent_per_aar)
+                #lenke = boligliste[bolig][6]
 
-                print(f'Bolig {bolig}   |   EOC: {eoc} - Omløpsrate: {omlopsrate} - PROI: {proi}   |   Fortjeneste: {endring_egenkapital} - Fortjeneste prosent: {endring_egenkapital_prosent} - Fortjeneste prosent per år: {endring_egenkapital_prosent_per_aar}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   EOC: {eoc_f} - Omløpsrate: {omlopsrate_f} - PROI: {proi_f_p}   |   Fortjeneste: {endring_egenkapital_f_p} - Fortjeneste prosent: {endring_egenkapital_prosent_f} - Fortjeneste prosent per år: {endring_egenkapital_prosent_per_aar_f}')
 
 
         #Relative tall      -       Sorterer etter "eoc"
@@ -415,11 +479,15 @@ def print_resultat ():
 
             for bolig in range(boligliste):
                 eoc = boligliste[bolig][0]
+                eoc_f = formating.f2(eoc)
                 omlopsrate = boligliste[bolig][1]
+                omlopsrate_f = formating.f2(omlopsrate)
                 proi = boligliste[bolig][2]
+                proi_f = formating.f2(proi)
+                proi_f_p = formating.p(proi_f)
                 lenke = boligliste[bolig][3]
 
-                print(f'Bolig {bolig}   |   EOC: {eoc} - Omløpsrate: {omlopsrate} - PROI: {proi}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   EOC: {eoc_f} - Omløpsrate: {omlopsrate_f} - PROI: {proi_f_p}   |   Lenke: {lenke}')
             
 
         #Eiendom            -       Sorterer etter "vekst_eiendomsverdi_prosent"
@@ -429,14 +497,24 @@ def print_resultat ():
 
             for bolig in range(boligliste):
                 eiendomsverdi = boligliste[bolig][0]
+                eiendomsverdi_f = formating.f0(eiendomsverdi)
+                eiendomsverdi_f_p = formating.p(eiendomsverdi_f)
                 vekst_eiendomsverdi = boligliste[bolig][1]
+                vekst_eiendomsverdi_f = formating.f0(vekst_eiendomsverdi)
+                vekst_eiendomsverdi_f_p = formating.p(vekst_eiendomsverdi_f)
                 vekst_eiendomsverdi_prosent = boligliste[bolig][2]
+                vekst_eiendomsverdi_prosent_f = formating.f2(vekst_eiendomsverdi_prosent)
                 vekst_eiendomsverdi_prosent_per_aar = boligliste[bolig][3]
+                vekst_eiendomsverdi_prosent_per_aar_f = formating.f2(vekst_eiendomsverdi_prosent_per_aar)
                 maanedlige_renter = boligliste[bolig][4]
+                maanedlige_renter_f = formating.f0(maanedlige_renter)
+                maanedlige_renter_f_p = formating.p(maanedlige_renter_f)
                 total_renter_eiendom = boligliste[bolig][5]
+                total_renter_eiendom_f = formating.f0(total_renter_eiendom)
+                total_renter_eiendom_f_p = formating.p(total_renter_eiendom_f)
                 lenke = boligliste[bolig][6]
 
-                print(f'Bolig {bolig}   |   Kjøpsverdi: {eiendomsverdi}   |   Fortjeneste: {vekst_eiendomsverdi} - Fortjeneste prosent: {vekst_eiendomsverdi_prosent} - Fortjeneste prosent per år: {vekst_eiendomsverdi_prosent_per_aar}   |   Maanedlige renter: {maanedlige_renter} - Totale renter: {total_renter_eiendom}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   Kjøpsverdi: {eiendomsverdi_f_p}   |   Fortjeneste: {vekst_eiendomsverdi_f_p} - Fortjeneste prosent: {vekst_eiendomsverdi_prosent_f} - Fortjeneste prosent per år: {vekst_eiendomsverdi_prosent_per_aar_f}   |   Maanedlige renter: {maanedlige_renter_f_p} - Totale renter: {total_renter_eiendom_f_p}   |   Lenke: {lenke}')
 
 
         #Leietall           -       Sorterer etter "tilbakebetalt_laan"
@@ -446,12 +524,17 @@ def print_resultat ():
 
             for bolig in range(boligliste):
                 tilbakebetalt_laan = boligliste[bolig][0]
+                tilbakebetalt_laan_f = formating.f0(tilbakebetalt_laan)
+                tilbakebetalt_laan_f_p = formating.p(tilbakebetalt_laan_f)
                 ny_laanesum = boligliste[bolig][1]
-                maanedlige_eierkostnader = boligliste[bolig][2]
-                total_renter_leie = boligliste[bolig][3]
-                lenke = boligliste[bolig][4]
+                ny_laanesum_f = formating.f0(ny_laanesum)
+                ny_laanesum_f_p = formating.p(ny_laanesum_f)
+                total_renter_leie = boligliste[bolig][2]
+                total_renter_leie_f = formating.f0(total_renter_leie)
+                total_renter_leie_f_p = formating.p(total_renter_leie_f)
+                lenke = boligliste[bolig][3]
 
-                print(f'Bolig {bolig}   |   Tilbakebetalt lån: {tilbakebetalt_laan} - Ny lånesum: {ny_laanesum}   |   Månedlige eierkostnader: {maanedlige_eierkostnader} - Totale renter: {total_renter_leie}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   Tilbakebetalt lån: {tilbakebetalt_laan_f_p} - Ny lånesum: {ny_laanesum_f_p}   |   Totale renter: {total_renter_leie_f_p}   |   Lenke: {lenke}')
 
 
         else:

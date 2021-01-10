@@ -49,24 +49,27 @@ def sammenlign_relevante_tall_ul (listeliste):
     #Sortere etter eoc#
     ###################
 
-    for liste in listeliste:
+    for liste in listelisteliste:
             eoc = liste[0][0]
             omlopsrate = liste[0][1]
             proi = liste[0][2]
             endring_egenkapital = liste[1][0]
             endring_egenkapital_prosent = liste[1][1]
             endring_egenkapital_prosent_per_aar = liste[1][2]
-            lenke = liste[4][0]
+            #lenke = liste[4][0]
 
-            relevante_tall_ul.append(eoc)
-            relevante_tall_ul.append(omlopsrate)
-            relevante_tall_ul.append(proi)
-            relevante_tall_ul.append(endring_egenkapital)
-            relevante_tall_ul.append(endring_egenkapital_prosent)
-            relevante_tall_ul.append(endring_egenkapital_prosent_per_aar)
-            relevante_tall_ul.append(lenke)
+            relevante_tall_ul_liste = []
+            relevante_tall_ul_liste.append(eoc)
+            relevante_tall_ul_liste.append(omlopsrate)
+            relevante_tall_ul_liste.append(proi)
+            relevante_tall_ul_liste.append(endring_egenkapital)
+            relevante_tall_ul_liste.append(endring_egenkapital_prosent)
+            relevante_tall_ul_liste.append(endring_egenkapital_prosent_per_aar)
+            #relevante_tall_ul_liste.append(lenke)
+            
+            relevante_tall_ul.append(relevante_tall_ul_liste)
 
-    relevante_tall_ul = sorted(relevante_tall_ul, key=lambda l:l[0], reverse = False)
+    relevante_tall_ul.sort(key=lambda l:l[0], reverse = True)
                                                 
     return relevante_tall_ul
 
@@ -94,14 +97,17 @@ def sammenlign_relative_tall (listeliste):
         eoc = liste[0][0]
         omlopsrate = liste[0][1]
         proi = liste[0][2]
-        lenke = liste[4][0]
+        #lenke = liste[4][0]
+        
+        relative_tall_liste = []
+        relative_tall_liste.append(eoc)
+        relative_tall_liste.append(omlopsrate)
+        relative_tall_liste.append(proi)
+        #relative_tall.append(lenke)
+        
+        relative_tall.append(relative_tall_liste)
 
-        relative_tall.append(eoc)
-        relative_tall.append(omlopsrate)
-        relative_tall.append(proi)
-        relative_tall.append(lenke)
-
-    relative_tall = sorted(relative_tall, key=lambda l:l[0], reverse = False)
+    relative_tall.sort(key=lambda l:l[0], reverse = True)
             
     return relative_tall
 
@@ -135,17 +141,20 @@ def sammenlign_eiendom (listeliste):
         vekst_eiendomsverdi_prosent_per_aar = liste[2][3]
         maanedlige_renter = liste[2][4]
         total_renter_eiendom = liste[2][5]
-        lenke = liste[4][0]
+        #lenke = liste[4][0]
+        
+        eiendomstall_liste = []
+        eiendomstall_liste.append(eiendomsverdi)
+        eiendomstall_liste.append(vekst_eiendomsverdi)
+        eiendomstall_liste.append(vekst_eiendomsverdi_prosent)
+        eiendomstall_liste.append(vekst_eiendomsverdi_prosent_per_aar)
+        eiendomstall_liste.append(maanedlige_renter)
+        eiendomstall_liste.append(total_renter_eiendom)
+        #eiendomstall.append(lenke)
 
-        eiendomstall.append(eiendomsverdi)
-        eiendomstall.append(vekst_eiendomsverdi)
-        eiendomstall.append(vekst_eiendomsverdi_prosent)
-        eiendomstall.append(vekst_eiendomsverdi_prosent_per_aar)
-        eiendomstall.append(maanedlige_renter)
-        eiendomstall.append(total_renter_eiendom)
-        eiendomstall.append(lenke)
+        eiendomstall.append(eiendomstall_liste)        
 
-    eiendomstall = sorted(eiendomstall, key=lambda l:l[2], reverse = False)
+    eiendomstall.sort(key=lambda l:l[2], reverse = True)
                                             
     return eiendomstall
 
@@ -173,15 +182,20 @@ def sammenlign_leie (listeliste):
     for liste in listeliste:
         tilbakebetalt_laan = liste[3][0]
         ny_laanesum = liste[3][1]
-        total_renter_leie = liste[3][2]
-        lenke = liste[4][0]
+        maanedlige_eierkostnader = liste[3][2]
+        total_renter_leie = liste[3][3]
+        #lenke = liste[4][0]
 
-        leietall.append(tilbakebetalt_laan)
-        leietall.append(ny_laanesum)
-        leietall.append(total_renter_leie)
-        leietall.append(lenke)
+        leietall_liste = []
+        leietall_liste.append(tilbakebetalt_laan)
+        leietall_liste.append(ny_laanesum)
+        leietall_liste.append(maanedlige_eierkostnader)
+        leietall_liste.append(total_renter_leie)
+        #leietall.append(lenke)
 
-    leietall = sorted(leietall, key=lambda l:l[0], reverse = False)
+        leietall.append(leietall_liste)
+
+    leietall.sort(key=lambda l:l[0], reverse = True)
 
     return leietall
 

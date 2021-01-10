@@ -7,7 +7,9 @@ def takeSecond (list):
     return list[1]
 
 def removesoup (string):
-    string = string.replace("\xa", "")
+    string = string.replace("\xa0", "")
+    string = string.replace("kr", "")
+    string = int(string)
     return string
 
 
