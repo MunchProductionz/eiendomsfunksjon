@@ -33,7 +33,7 @@ def print_resultat ():
 
     #Utregning
     boligtall = []
-    bolig_dict = data_from_ads()    #Endre til vekstrate
+    bolig_dict = vekstrate_funk()    #Endre til vekstrate
     for bolignr in bolig_dict:
         utregninger = verdi_utregning(bolig_dict[bolignr], faktisk_kapital)
         boligtall.append(utregninger)
@@ -67,9 +67,9 @@ def print_resultat ():
                 endring_egenkapital_prosent_f = formating.f2(endring_egenkapital_prosent)
                 endring_egenkapital_prosent_per_aar = boligliste[bolig][5]
                 endring_egenkapital_prosent_per_aar_f = formating.f2(endring_egenkapital_prosent_per_aar)
-                #lenke = boligliste[bolig][6]
+                lenke = boligliste[bolig][6]
 
-                print(f'Bolig {bolig}   |   EOC: {eoc_f} - Omløpsrate: {omlopsrate_f} - PROI: {proi_f_p}   |   Fortjeneste: {endring_egenkapital_f_p} - Fortjeneste prosent: {endring_egenkapital_prosent_f} - Fortjeneste prosent per år: {endring_egenkapital_prosent_per_aar_f}')
+                print(f'Bolig {bolig}   |   EOC: {eoc_f} - Omløpsrate: {omlopsrate_f} - PROI: {proi_f_p}   |   Fortjeneste: {endring_egenkapital_f_p} - Fortjeneste prosent: {endring_egenkapital_prosent_f} - Fortjeneste prosent per år: {endring_egenkapital_prosent_per_aar_f}  |   Lenke: {lenke}')
 
 
         #Relative tall      -       Sorterer etter "eoc"
@@ -85,9 +85,9 @@ def print_resultat ():
                 proi = boligliste[bolig][2]
                 proi_f = formating.f2(proi)
                 proi_f_p = formating.p(proi_f)
-                #lenke = boligliste[bolig][3]
+                lenke = boligliste[bolig][3]
 
-                print(f'Bolig {bolig}   |   EOC: {eoc_f} - Omløpsrate: {omlopsrate_f} - PROI: {proi_f_p}')
+                print(f'Bolig {bolig}   |   EOC: {eoc_f} - Omløpsrate: {omlopsrate_f} - PROI: {proi_f_p}    |   Lenke: {lenke}')
             
 
         #Eiendom            -       Sorterer etter "vekst_eiendomsverdi_prosent"
@@ -112,9 +112,9 @@ def print_resultat ():
                 total_renter_eiendom = boligliste[bolig][5]
                 total_renter_eiendom_f = formating.f0(total_renter_eiendom)
                 total_renter_eiendom_f_p = formating.p(total_renter_eiendom_f)
-                #lenke = boligliste[bolig][6]
+                lenke = boligliste[bolig][6]
 
-                print(f'Bolig {bolig}   |   Kjøpsverdi: {eiendomsverdi_f_p}   |   Fortjeneste: {vekst_eiendomsverdi_f_p} - Fortjeneste prosent: {vekst_eiendomsverdi_prosent_f} - Fortjeneste prosent per år: {vekst_eiendomsverdi_prosent_per_aar_f}   |   Maanedlige renter: {maanedlige_renter_f_p} - Totale renter: {total_renter_eiendom_f_p}')
+                print(f'Bolig {bolig}   |   Kjøpsverdi: {eiendomsverdi_f_p}   |   Fortjeneste: {vekst_eiendomsverdi_f_p} - Fortjeneste prosent: {vekst_eiendomsverdi_prosent_f} - Fortjeneste prosent per år: {vekst_eiendomsverdi_prosent_per_aar_f}   |   Maanedlige renter: {maanedlige_renter_f_p} - Totale renter: {total_renter_eiendom_f_p}  |   Lenke: {lenke}')
 
 
         #Leietall           -       Sorterer etter "tilbakebetalt_laan"
@@ -132,9 +132,9 @@ def print_resultat ():
                 total_renter_leie = boligliste[bolig][2]
                 total_renter_leie_f = formating.f0(total_renter_leie)
                 total_renter_leie_f_p = formating.p(total_renter_leie_f)
-                #lenke = boligliste[bolig][3]
+                lenke = boligliste[bolig][3]
 
-                print(f'Bolig {bolig}   |   Tilbakebetalt lån: {tilbakebetalt_laan_f_p} - Ny lånesum: {ny_laanesum_f_p}   |   Totale renter: {total_renter_leie_f_p}')
+                print(f'Bolig {bolig}   |   Tilbakebetalt lån: {tilbakebetalt_laan_f_p} - Ny lånesum: {ny_laanesum_f_p}   |   Totale renter: {total_renter_leie_f_p}    |   Lenke: {lenke}')
 
 
         else:

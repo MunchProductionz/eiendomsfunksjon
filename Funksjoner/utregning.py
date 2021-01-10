@@ -24,15 +24,14 @@ def verdi_utregning (liste, faktisk_kapital):
     egenkapital = 0.15
     r = 1.02                #Hente rentesats fra bank/nettside
     rentesum = r**aar
-    forventet_vekst = 1.1
     leieinntekt = 5700
     leietagere = 2
     
     #Variabler fra liste
     #omraade = liste[0]
     eiendomspris = hjelpefunksjoner.removesoup(liste[2])
-    #forventet_vekst = liste[4]   #Hente ved bruk av omraade-variabel
-    #lenke = liste[5]
+    forventet_vekst = hjelpefunksjoner.removesoup(liste[4])
+    lenke = liste[5]
     laanesum = eiendomspris * (1 - egenkapital)
 
     
@@ -122,7 +121,7 @@ def verdi_utregning (liste, faktisk_kapital):
     listeliste.append(egenkapital)
     listeliste.append(eiendom)
     listeliste.append(leie)
-    #listeliste.append(lenke)
+    listeliste.append(lenke)
 
     return listeliste
     

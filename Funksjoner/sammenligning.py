@@ -56,7 +56,7 @@ def sammenlign_relevante_tall_ul (listeliste):
             endring_egenkapital = liste[1][0]
             endring_egenkapital_prosent = liste[1][1]
             endring_egenkapital_prosent_per_aar = liste[1][2]
-            #lenke = liste[4][0]
+            lenke = liste[4]
 
             relevante_tall_ul_liste = []
             relevante_tall_ul_liste.append(eoc)
@@ -65,7 +65,7 @@ def sammenlign_relevante_tall_ul (listeliste):
             relevante_tall_ul_liste.append(endring_egenkapital)
             relevante_tall_ul_liste.append(endring_egenkapital_prosent)
             relevante_tall_ul_liste.append(endring_egenkapital_prosent_per_aar)
-            #relevante_tall_ul_liste.append(lenke)
+            relevante_tall_ul_liste.append(lenke)
             
             relevante_tall_ul.append(relevante_tall_ul_liste)
 
@@ -97,13 +97,13 @@ def sammenlign_relative_tall (listeliste):
         eoc = liste[0][0]
         omlopsrate = liste[0][1]
         proi = liste[0][2]
-        #lenke = liste[4][0]
+        lenke = liste[4]
         
         relative_tall_liste = []
         relative_tall_liste.append(eoc)
         relative_tall_liste.append(omlopsrate)
         relative_tall_liste.append(proi)
-        #relative_tall.append(lenke)
+        relative_tall_liste.append(lenke)
         
         relative_tall.append(relative_tall_liste)
 
@@ -141,7 +141,7 @@ def sammenlign_eiendom (listeliste):
         vekst_eiendomsverdi_prosent_per_aar = liste[2][3]
         maanedlige_renter = liste[2][4]
         total_renter_eiendom = liste[2][5]
-        #lenke = liste[4][0]
+        lenke = liste[4]
         
         eiendomstall_liste = []
         eiendomstall_liste.append(eiendomsverdi)
@@ -150,7 +150,7 @@ def sammenlign_eiendom (listeliste):
         eiendomstall_liste.append(vekst_eiendomsverdi_prosent_per_aar)
         eiendomstall_liste.append(maanedlige_renter)
         eiendomstall_liste.append(total_renter_eiendom)
-        #eiendomstall.append(lenke)
+        eiendomstall_liste.append(lenke)
 
         eiendomstall.append(eiendomstall_liste)        
 
@@ -184,14 +184,14 @@ def sammenlign_leie (listeliste):
         ny_laanesum = liste[3][1]
         maanedlige_eierkostnader = liste[3][2]
         total_renter_leie = liste[3][3]
-        #lenke = liste[4][0]
+        lenke = liste[4][0]
 
         leietall_liste = []
         leietall_liste.append(tilbakebetalt_laan)
         leietall_liste.append(ny_laanesum)
         leietall_liste.append(maanedlige_eierkostnader)
         leietall_liste.append(total_renter_leie)
-        #leietall.append(lenke)
+        leietall_liste.append(lenke)
 
         leietall.append(leietall_liste)
 
