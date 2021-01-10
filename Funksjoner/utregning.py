@@ -30,7 +30,7 @@ def verdi_utregning (liste, faktisk_kapital):
     #Variabler fra liste
     #omraade = liste[0]
     eiendomspris = hjelpefunksjoner.removesoup(liste[2])
-    forventet_vekst = hjelpefunksjoner.removesoup(liste[4])
+    forventet_vekst = float(hjelpefunksjoner.removesoup(liste[4]))
     lenke = liste[5]
     laanesum = eiendomspris * (1 - egenkapital)
 

@@ -157,7 +157,7 @@ def verdi_utregning (liste, faktisk_kapital):
     #Variabler fra liste
     #omraade = liste[0]
     eiendomspris = removesoup(liste[2])
-    forventet_vekst = removesoup(liste[4])
+    forventet_vekst = int(removesoup(liste[4]))
     lenke = liste[5]
     laanesum = eiendomspris * (1 - egenkapital)
 
