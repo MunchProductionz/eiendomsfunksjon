@@ -122,7 +122,7 @@ def print_resultat ():
             svar_test = True
             boligliste = sammenlign_leie(boligtall)
 
-            for bolig in range(boligliste):
+            for bolig in range(len(boligliste)):
                 tilbakebetalt_laan = boligliste[bolig][0]
                 tilbakebetalt_laan_f = formating.f0(tilbakebetalt_laan)
                 tilbakebetalt_laan_f_p = formating.p(tilbakebetalt_laan_f)

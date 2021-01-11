@@ -396,14 +396,12 @@ def sammenlign_leie (listeliste):
     for liste in listeliste:
         tilbakebetalt_laan = liste[3][0]
         ny_laanesum = liste[3][1]
-        maanedlige_eierkostnader = liste[3][2]
-        total_renter_leie = liste[3][3]
+        total_renter_leie = liste[3][2]
         lenke = liste[4]
 
         leietall_liste = []
         leietall_liste.append(tilbakebetalt_laan)
         leietall_liste.append(ny_laanesum)
-        leietall_liste.append(maanedlige_eierkostnader)
         leietall_liste.append(total_renter_leie)
         leietall_liste.append(lenke)
 
@@ -481,7 +479,7 @@ def print_resultat ():
             svar_test = True
             boligliste = sammenlign_relative_tall(boligtall)
 
-            for bolig in range(boligliste):
+            for bolig in range(len(boligliste)):
                 eoc = boligliste[bolig][0]
                 eoc_f = formating.f2(eoc)
                 omlopsrate = boligliste[bolig][1]
@@ -499,7 +497,7 @@ def print_resultat ():
             svar_test = True
             boligliste = sammenlign_eiendom(boligtall)
 
-            for bolig in range(boligliste):
+            for bolig in range(len(boligliste)):
                 eiendomsverdi = boligliste[bolig][0]
                 eiendomsverdi_f = formating.f0(eiendomsverdi)
                 eiendomsverdi_f_p = formating.p(eiendomsverdi_f)
@@ -526,7 +524,7 @@ def print_resultat ():
             svar_test = True
             boligliste = sammenlign_leie(boligtall)
 
-            for bolig in range(boligliste):
+            for bolig in range(len(boligliste)):
                 tilbakebetalt_laan = boligliste[bolig][0]
                 tilbakebetalt_laan_f = formating.f0(tilbakebetalt_laan)
                 tilbakebetalt_laan_f_p = formating.p(tilbakebetalt_laan_f)

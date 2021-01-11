@@ -182,14 +182,12 @@ def sammenlign_leie (listeliste):
     for liste in listeliste:
         tilbakebetalt_laan = liste[3][0]
         ny_laanesum = liste[3][1]
-        maanedlige_eierkostnader = liste[3][2]
-        total_renter_leie = liste[3][3]
+        total_renter_leie = liste[3][2]
         lenke = liste[4][0]
 
         leietall_liste = []
         leietall_liste.append(tilbakebetalt_laan)
         leietall_liste.append(ny_laanesum)
-        leietall_liste.append(maanedlige_eierkostnader)
         leietall_liste.append(total_renter_leie)
         leietall_liste.append(lenke)
 
