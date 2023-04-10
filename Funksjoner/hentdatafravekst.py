@@ -1,5 +1,5 @@
 import requests
-import beautifulsoup4 as bs4
+import bs4
 from hentdata import hent_data
 from hendatafrabolig import data_from_ads
 
