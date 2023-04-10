@@ -2,8 +2,8 @@
 
 A project to learn web-scraping and data analysis using:
 - Python
-- BeatifulSoup
-- Finn.no
+- [BeatifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+- [Finn.no](https://www.finn.no/realestate/browse.html)
 
 ---
 
@@ -42,3 +42,18 @@ Virtual environment created according to [this guide](https://realpython.com/pyt
 `venv` isn't deterministic and we may encounter errors in the future. This is an alternative should it be required:
 
 - [Poetry - Python packaging and dependency management made easy](https://python-poetry.org/)
+
+## Useful development plugins
+
+- Python related:
+    - [Python Environment Manager](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python-environment-manager)
+    - [Python Indent](https://marketplace.visualstudio.com/items?itemName=KevinRose.vsc-python-indent)
+- Git (gud):
+    - [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
+    - [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
+    - [GitLens - Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- General QoL:
+    - [TODO Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)
+    - [TODO Highlight](https://marketplace.visualstudio.com/items?itemName=wayou.vscode-todo-highlight)
+    - [Markdown Preview Enhanced](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced)
+    - [Project Manager](https://marketplace.visualstudio.com/items?itemName=alefragnani.project-manager)
