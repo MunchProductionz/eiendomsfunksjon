@@ -1,15 +1,13 @@
 import requests
 import bs4
+import formating
+import lxml
 
 # Hent data
 def hent_data(link):
-
     res = requests.get(link)
-
-    
     soup = bs4.BeautifulSoup(res.text,'lxml')
-
-
+    
     return soup
 
 
@@ -19,15 +17,14 @@ soup = hent_data('https://www.finn.no/realestate/homes/search.html?location=2.20
 # Hent lenke
 def annonse_lenke(soup):
     ad_links = []
-    for link in soup.find_all('a',{"class":"ads__unit__link"}):
-        
+    for link in soup.find_all('a', {"class": "link link--dark sf-ad-link sf-realestate-heading"}):
         ad_links.append(link['href'])
         
     return ad_links
     
 
 # Hent data
-def data_from_ads():
+def data_from_ads(soup):
     ad_links = annonse_lenke(soup)
     del(ad_links[0])
     bolig_dict = {}
@@ -41,13 +38,15 @@ def data_from_ads():
             omraade = ''.join([i for i in omraade_1 if not i.isdigit()])
             omraade = omraade.replace("(","")
             omraade = omraade.replace(")","")
+            omraade = omraade.replace("\xa0", "")
             bolig_info.append(omraade)
 
+        for address in ad_soup.find('span', {"data-testid": "object-address"}):
+            postnr = address.get_text().split(" ")[-2]
+            bolig_info.append(postnr)
 
-        
-
-        for pris in ad_soup.select('span.u-t3:contains("kr")'):
-            prisantydning = (pris.text).replace(" ","").strip()
+        for pris in ad_soup.find_all('div', {"data-testid": "pricing-incicative-price"}):
+            prisantydning = pris.get_text().replace("Prisantydning", "")[:-3].replace("\xa0", "")
             bolig_info.append(prisantydning)
 
         bolig_dict.setdefault(bolignr,bolig_info)
@@ -61,7 +60,8 @@ def postnummer_side(postnummer):
 
     return soup
 def vekstrate_funk(finn_lenke):
-    bolig_dict = data_from_ads(finn_lenke)
+    soup = hent_data(finn_lenke)
+    bolig_dict = data_from_ads(soup)
     for key, items in bolig_dict.items():
         postnr = items[2]
         soup1 = postnummer_side(postnr)
@@ -432,7 +432,7 @@ def print_resultat ():
 
     #Utregning
     boligtall = []
-    bolig_dict = vekstrate_funk()
+    bolig_dict = vekstrate_funk('https://www.finn.no/realestate/homes/search.html?location=2.20016.20318.20505&sort=PUBLISHED_DESC')
     for bolignr in bolig_dict:
         utregninger = verdi_utregning(bolig_dict[bolignr], faktisk_kapital)
         boligtall.append(utregninger)
