@@ -1,5 +1,5 @@
 import requests
-import bs4
+import beautifulsoup4 as bs4
 
 # Hent data
 def hent_data(link):

@@ -1,5 +1,5 @@
 #################
-#Mulie parametere
+#Mulige parametere
 #################
 
 ## Prisantydning

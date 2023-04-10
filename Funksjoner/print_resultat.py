@@ -1,5 +1,5 @@
 import requests
-import bs4
+import beautifulsoup4 as bs4
 import hentdata
 import hentdatafrabolig
 import hjelpefunksjoner
