@@ -1,4 +1,4 @@
-# Stonks- / $MEME-project
+# Eiendomsfunksjon / Web-scraping project
 
 A project to learn web-scraping and data analysis using:
 - Python
