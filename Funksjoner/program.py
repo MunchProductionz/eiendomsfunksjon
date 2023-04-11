@@ -31,7 +31,7 @@ def data_from_ads(soup):
     for count, lenke in enumerate(ad_links, start=1):
         ad_soup = hent_data(lenke)
         bolignr = "bolig"+str(count)
-        bolig_info = []
+        bolig_info = [lenke]
 
         for checkbox in soup.find_all('input', checked=True,limit=2):
             omraade_1 = checkbox.find_next_sibling("label").get_text()
@@ -63,10 +63,10 @@ def vekstrate_funk(finn_lenke):
     soup = hent_data(finn_lenke)
     bolig_dict = data_from_ads(soup)
     for key, items in bolig_dict.items():
-        postnr = items[2]
+        postnr = items[3]
         soup1 = postnummer_side(postnr)
-        vekstrate = soup1.find("h1",{"class":"css-10rlvwe"}).get_text()
-        bolig_dict[key].insert(4,vekstrate)
+        vekstrate = float(soup1.find("h1",{"class":"css-10rlvwe"}).get_text().replace(",", "."))
+        bolig_dict[key].insert(5,vekstrate)
     return bolig_dict
 #print(vekstrate_funk('https://www.finn.no/realestate/homes/search.html?location=2.20016.20318.20505&sort=PUBLISHED_DESC'))
 
@@ -99,13 +99,14 @@ def takeFirst (list):
     return list[0]
 def takeSecond (list):
     return list[1]
-def removesoup (string):
+def removesoup_int(string):
     string = string.replace("\xa0", "")
     string = string.replace("kr", "")
-    string = int(string)
-    return string
-
-
+    integer = int(string)
+    return integer
+def removesoup_float(string):
+    float_number = float(string)
+    return float_number
 
 # Vekstfunksjoner
 def renter_test (laanesum, rentesats):
@@ -130,15 +131,15 @@ def tilbakebetalt_rek_maan (laanesum, maanedlig_inntekt_m, total_maaneder, r):
     else:                                                   #Kaller seg selv med ny laanesum som parameter
         return tilbakebetalt_sum + tilbakebetalt_rek_maan(ny_laanesum, maanedlig_inntekt_m, total_maaneder, r)
 
-def vekst_rek_aar (verdi, aar, veksttall):
-    vekst = verdi * veksttall
-    ny_verdi = verdi + vekst
+def vekst_rek_aar(eiendomspris, aar, veksttall):
+    vekst = eiendomspris * veksttall
+    ny_eiendomspris = eiendomspris + vekst
     aar -= 1
 
     if aar == 1:
         return vekst
     else:
-        return vekst + vekst_rek_aar(ny_verdi, aar, veksttall)
+        return vekst + vekst_rek_aar(ny_eiendomspris, aar, veksttall)
 
 
 # Utregning
@@ -156,9 +157,9 @@ def verdi_utregning (liste, faktisk_kapital):
     
     #Variabler fra liste
     #omraade = liste[0]
-    eiendomspris = removesoup(liste[2])
-    forventet_vekst = int(removesoup(liste[4]))
-    lenke = liste[5]
+    eiendomspris = removesoup_int(liste[4])
+    forventet_vekst = removesoup_float(liste[5]) / 100
+    lenke = liste[0]
     laanesum = eiendomspris * (1 - egenkapital)
 
     
@@ -176,24 +177,30 @@ def verdi_utregning (liste, faktisk_kapital):
     eiendomsverdi = eiendomspris + vekst_eiendomsverdi
     
     #Renter boliglaan
-    aarlige_renter = laanesum * r
+    aarlige_renter = laanesum * (r - 1)
     maanedlige_renter = aarlige_renter / maaneder
     total_renter_eiendom = aarlige_renter * aar
 
-    #Endring egenkapital
-    endring_egenkapital = eiendomsverdi - eiendomspris - total_renter_eiendom
-    endring_egenkapital_prosent = endring_egenkapital / egenkapital
-    endring_egenkapital_prosent_per_aar = endring_egenkapital_prosent / aar
-
     #Faktisk egenkapital
     faktisk_egenkapital = faktisk_kapital
-    potenisell_laanesum = faktisk_egenkapital / egenkapital
+    potensiell_laanesum = faktisk_egenkapital / egenkapital
+
+    #Endring egenkapital
+    endring_egenkapital = vekst_eiendomsverdi - total_renter_eiendom
+    endring_egenkapital_prosent = endring_egenkapital / faktisk_egenkapital
+    endring_egenkapital_prosent_per_aar = endring_egenkapital_prosent / aar
+    
+    print(faktisk_egenkapital)
+    print(vekst_eiendomsverdi)
+    print(total_renter_eiendom)
+    print(endring_egenkapital)
+    print(endring_egenkapital_prosent)
 
     #Gevinst mot innsats (Efficieny of Capital)
-    eoc = endring_egenkapital_prosent * (laanesum / potenisell_laanesum) * 100  #100 gjor bare tallene penere
+    eoc = endring_egenkapital_prosent * (laanesum / potensiell_laanesum) * 100  #100 gjor bare tallene penere
 
     #Omlopsrate 
-    omlopsrate = potenisell_laanesum / laanesum
+    omlopsrate = potensiell_laanesum / laanesum
 
     #Maksimal potensiell endring egenkapital (Potential Returns on Investment)
     proi = endring_egenkapital_prosent * omlopsrate
@@ -433,6 +440,7 @@ def print_resultat ():
     #Utregning
     boligtall = []
     bolig_dict = vekstrate_funk('https://www.finn.no/realestate/homes/search.html?location=2.20016.20318.20505&sort=PUBLISHED_DESC')
+    print(bolig_dict)
     for bolignr in bolig_dict:
         utregninger = verdi_utregning(bolig_dict[bolignr], faktisk_kapital)
         boligtall.append(utregninger)
@@ -516,7 +524,7 @@ def print_resultat ():
                 total_renter_eiendom_f_p = formating.p(total_renter_eiendom_f)
                 lenke = boligliste[bolig][6]
 
-                print(f'Bolig {bolig}   |   Kjøpsverdi: {eiendomsverdi_f_p}   |   Fortjeneste: {vekst_eiendomsverdi_f_p} - Fortjeneste prosent: {vekst_eiendomsverdi_prosent_f} - Fortjeneste prosent per år: {vekst_eiendomsverdi_prosent_per_aar_f}   |   Maanedlige renter: {maanedlige_renter_f_p} - Totale renter: {total_renter_eiendom_f_p}   |   Lenke: {lenke}')
+                print(f'Bolig {bolig}   |   Kjøpsverdi: {eiendomsverdi_f_p}   |   Fortjeneste: {vekst_eiendomsverdi_f_p} - Fortjeneste prosent: {round(vekst_eiendomsverdi_prosent_f, 2)*100}% - Fortjeneste prosent per år: {round(vekst_eiendomsverdi_prosent_per_aar_f, 2)*100}%   |   Maanedlige renter: {maanedlige_renter_f_p} - Totale renter: {total_renter_eiendom_f_p}   |   Lenke: {lenke}')
 
 
         #Leietall           -       Sorterer etter "tilbakebetalt_laan"
